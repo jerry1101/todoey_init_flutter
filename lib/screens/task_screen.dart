@@ -16,7 +16,13 @@ class _TaskScreenState extends State<TaskScreen> {
     var scaffold = Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => showModalBottomSheet(
-            context: context, builder: (context) => AddTaskSheet()),
+            context: context,
+            isScrollControlled: true,
+            builder: (context) => SingleChildScrollView(
+                child: Container(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: AddTaskSheet()))),
         child: Icon(Icons.add),
       ),
       backgroundColor: Colors.blueAccent,
