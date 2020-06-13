@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_init/widgets/add_task_sheet.dart';
+import 'package:todoey_init/widgets/task_list.dart';
+import 'package:todoey_init/widgets/task_tile.dart';
 
 class TaskScreen extends StatefulWidget {
   TaskScreen({Key key}) : super(key: key);
@@ -11,6 +14,11 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     var scaffold = Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showModalBottomSheet(
+            context: context, builder: (context) => AddTaskSheet()),
+        child: Icon(Icons.add),
+      ),
       backgroundColor: Colors.blueAccent,
       body: _body(),
     );
@@ -46,11 +54,13 @@ class _lowerBody extends StatelessWidget {
       child: Container(
         color: Colors.blue,
         child: Container(
-          height: 300,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          // height: 300,
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+          child: TaskList(),
         ),
       ),
     );
