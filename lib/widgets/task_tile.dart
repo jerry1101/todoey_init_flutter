@@ -2,72 +2,50 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class TaskTile extends StatefulWidget {
-  const TaskTile({
-    Key key,
-  }) : super(key: key);
+class TaskTile extends StatelessWidget {
+  // @override
+  // _TaskTileState createState() => _TaskTileState();
+// }
 
-  @override
-  _TaskTileState createState() => _TaskTileState();
-}
+// class _TaskTileState extends State<TaskTile> {
+  // void checkboxCallback(bool checkboxStatus) {
+  //   setState(() {
+  //     isChecked = checkboxStatus;
+  //   });
+  // }
 
-class _TaskTileState extends State<TaskTile> {
-  void checkboxCallback(bool checkboxStatus) {
-    setState(() {
-      isChecked = checkboxStatus;
-    });
-  }
-
-  bool isChecked = true;
+  final bool isChecked;
+  final String name;
+  TaskTile({@required this.name, this.isChecked=false});
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(
-        'tttttt1',
-        style: TextStyle(
-            decoration: isChecked ? TextDecoration.lineThrough : null),
-      ),
-      trailing: TaskCheckbox(isChecked, checkboxCallback),
-    );
+        title: Text(
+          name,
+          style: TextStyle(
+              decoration: isChecked ? TextDecoration.lineThrough : null),
+        ),
+        trailing: Checkbox(
+          activeColor: Colors.orange[700],
+          value: isChecked,
+        )
+        // TaskCheckbox(isChecked, checkboxCallback),
+        );
   }
 }
 
 class TaskCheckbox extends StatelessWidget {
   final isChecked;
-  final callbackfunction;
+  final Function callbackfunction;
   TaskCheckbox(this.isChecked, this.callbackfunction);
   @override
   Widget build(BuildContext context) {
     return Checkbox(
       activeColor: Colors.orange[700],
       value: isChecked,
-      onChanged: (newValue) {
-        callbackfunction(newValue);
-      },
+      // onChanged: (newValue) {
+      //   callbackfunction(newValue);
+      // },
     );
   }
 }
-// class TaskCheckbox extends StatefulWidget {
-//   const TaskCheckbox({
-//     Key key,
-//   }) : super(key: key);
-
-//   @override
-//   _TaskCheckboxState createState() => _TaskCheckboxState();
-// }
-
-// class _TaskCheckboxState extends State<TaskCheckbox> {
-//   bool _isChecked = false;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Checkbox(
-//       activeColor: Colors.orange[700],
-//       value: _isChecked,
-//       onChanged: (newValue) {
-//         setState(() {
-//           _isChecked = newValue;
-//         });
-//       },
-//     );
-//   }
-// }
