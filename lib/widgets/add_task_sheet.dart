@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AddTaskSheet extends StatelessWidget {
-  const AddTaskSheet({Key key}) : super(key: key);
+  String _taskName;
+  Function _screenCallback;
+  
+  AddTaskSheet(this._screenCallback);
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +29,15 @@ class AddTaskSheet extends StatelessWidget {
               TextField(
                 autofocus: true,
                 textAlign: TextAlign.center,
+                onChanged: (newValue) {
+                  _taskName = newValue;
+                },
               ),
               FlatButton(
-                color: Colors.lightBlueAccent,
+                  color: Colors.lightBlueAccent,
                   onPressed: () {
-// todo
+                    print(_taskName);
+                    _screenCallback(_taskName);
                   },
                   child: Text('Save'))
             ],

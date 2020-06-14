@@ -3,20 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class TaskTile extends StatelessWidget {
-  // @override
-  // _TaskTileState createState() => _TaskTileState();
-// }
-
-// class _TaskTileState extends State<TaskTile> {
-  // void checkboxCallback(bool checkboxStatus) {
-  //   setState(() {
-  //     isChecked = checkboxStatus;
-  //   });
-  // }
-
   final bool isChecked;
   final String name;
-  TaskTile({@required this.name, this.isChecked=false});
+  final Function listViewCallback;
+  TaskTile({this.name, this.isChecked, this.listViewCallback});
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -26,26 +16,28 @@ class TaskTile extends StatelessWidget {
               decoration: isChecked ? TextDecoration.lineThrough : null),
         ),
         trailing: Checkbox(
-          activeColor: Colors.orange[700],
-          value: isChecked,
-        )
+            activeColor: Colors.orange[700],
+            value: isChecked,
+            onChanged: (newValue) {
+              listViewCallback(newValue);
+            })
         // TaskCheckbox(isChecked, checkboxCallback),
         );
   }
 }
 
-class TaskCheckbox extends StatelessWidget {
-  final isChecked;
-  final Function callbackfunction;
-  TaskCheckbox(this.isChecked, this.callbackfunction);
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-      activeColor: Colors.orange[700],
-      value: isChecked,
-      // onChanged: (newValue) {
-      //   callbackfunction(newValue);
-      // },
-    );
-  }
-}
+// class TaskCheckbox extends StatelessWidget {
+//   final isChecked;
+//   final Function callbackfunction;
+//   TaskCheckbox(this.isChecked, this.callbackfunction);
+//   @override
+//   Widget build(BuildContext context) {
+//     return Checkbox(
+//       activeColor: Colors.orange[700],
+//       value: isChecked,
+//       // onChanged: (newValue) {
+//       //   callbackfunction(newValue);
+//       // },
+//     );
+//   }
+// }

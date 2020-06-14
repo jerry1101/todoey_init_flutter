@@ -4,5 +4,5 @@ class Task {
 
   Task(this.name, {this.isDone = false});
 
-  void ToggleChekcBoc() => isDone = !isDone;
+  void ToggleCheckbox() => isDone = !isDone;
 }

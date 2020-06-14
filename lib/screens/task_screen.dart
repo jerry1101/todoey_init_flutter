@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_init/models/task.dart';
 import 'package:todoey_init/widgets/add_task_sheet.dart';
 import 'package:todoey_init/widgets/task_list.dart';
 import 'package:todoey_init/widgets/task_tile.dart';
 
 class TaskScreen extends StatefulWidget {
   TaskScreen({Key key}) : super(key: key);
+  List<Task> tasks = [Task('buy milk'), Task('buy gas'), Task('buy book')];
 
   @override
   _TaskScreenState createState() => _TaskScreenState();
@@ -22,22 +24,27 @@ class _TaskScreenState extends State<TaskScreen> {
                 child: Container(
                     padding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom),
-                    child: AddTaskSheet()))),
+                    child: AddTaskSheet(screenCallback)))),
         child: Icon(Icons.add),
       ),
       backgroundColor: Colors.blueAccent,
-      body: _body(),
+      body: _body(widget.tasks),
     );
     return SafeArea(
       child: scaffold,
     );
   }
+
+  void screenCallback(String taskName) {
+    setState(() {
+      widget.tasks.add(Task(taskName));
+    });
+  }
 }
 
 class _body extends StatelessWidget {
-  const _body({
-    Key key,
-  }) : super(key: key);
+  final List<Task> tasks;
+  _body(this.tasks);
 
   @override
   Widget build(BuildContext context) {
@@ -45,15 +52,15 @@ class _body extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _upperBody(),
-        _lowerBody(),
+        _lowerBody(tasks),
       ],
     );
   }
 }
 
 class _lowerBody extends StatelessWidget {
-  const _lowerBody({Key key}) : super(key: key);
-
+  final List<Task> tasks;
+  _lowerBody(this.tasks);
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -66,7 +73,7 @@ class _lowerBody extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30))),
-          child: TaskList(),
+          child: TaskList(tasks),
         ),
       ),
     );
